@@ -10,7 +10,7 @@ app = FastAPI(title="Job Market Analyzer API")
 
 ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://job-market-analyzer.vercel.app",  # update to your real Vercel URL after deploy
+    "https://job-market-analyzer-xi.vercel.app",
 ]
 
 app.add_middleware(
