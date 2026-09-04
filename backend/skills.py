@@ -27,6 +27,14 @@ def _skill_pattern(skill: str) -> re.Pattern:
 SKILL_PATTERNS = {skill: _skill_pattern(skill) for skill in KNOWN_SKILLS}
 
 
+def job_has_skill(job: dict, skill: str) -> bool:
+    pattern = SKILL_PATTERNS.get(skill)
+    if pattern is None:
+        return False
+    text = f"{job.get('title', '')} {job.get('description', '')}"
+    return bool(pattern.search(text))
+
+
 def count_skills(jobs: list[dict]) -> Counter:
     counts = Counter()
     for job in jobs:

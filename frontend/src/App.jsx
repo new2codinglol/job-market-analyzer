@@ -1,43 +1,24 @@
-import { useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { getTopSkills } from "./client";
+import { NavLink, Route, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Jobs from "./pages/Jobs";
+
+const navLinkClass = ({ isActive }) =>
+  `px-3 py-2 text-sm font-medium rounded ${isActive ? "bg-blue-600 text-white" : "text-slate-700 hover:bg-slate-100"}`;
 
 export default function App() {
-  const [skills, setSkills] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    getTopSkills(10).then(setSkills).catch((e) => setError(e.message));
-  }, []);
-
   return (
-    <div className="min-h-screen bg-slate-50 p-8">
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">
-        Job Market Analyzer — Top Skills
-      </h1>
-      {error && <p className="text-red-600">{error}</p>}
-      {!error && skills.length === 0 && (
-        <p className="text-slate-500">No data yet — run fetch_seed.py to populate seed_jobs.json.</p>
-      )}
-      {skills.length > 0 && (
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart data={skills}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="skill" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="count" fill="#2563eb" />
-          </BarChart>
-        </ResponsiveContainer>
-      )}
+    <div className="min-h-screen bg-slate-50">
+      <nav className="bg-white border-b border-slate-200 px-8 py-4 flex items-center gap-2">
+        <span className="font-bold text-slate-900 mr-4">Job Market Analyzer</span>
+        <NavLink to="/" end className={navLinkClass}>Dashboard</NavLink>
+        <NavLink to="/jobs" className={navLinkClass}>Jobs</NavLink>
+      </nav>
+      <div className="p-8">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/jobs" element={<Jobs />} />
+        </Routes>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 # Job Market Analyzer
 
-Top in-demand tech skills, extracted from real job postings.
+Top in-demand tech skills and searchable job listings, extracted from real job postings (Singapore market — closest Adzuna coverage to the region; Malaysia isn't a supported Adzuna country).
 
 ## Live demo
 
@@ -33,7 +33,7 @@ Open http://localhost:5173
 3. `pip install -r requirements.txt` (includes requests/dotenv)
 4. `python scripts/fetch_seed.py` — writes `backend/data/seed_jobs.json`
 
-Until this is run, the app serves an empty skill list.
+Until this is run, the app serves an empty skill/job list. `fetch_seed.py` currently pulls from Adzuna's `sg` (Singapore) market — edit `COUNTRY` in the script to change it, subject to Adzuna's supported country list.
 
 ## Deploy
 

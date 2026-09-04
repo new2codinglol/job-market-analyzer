@@ -12,7 +12,7 @@ load_dotenv(Path(__file__).parent.parent / ".env")
 
 APP_ID = os.environ["ADZUNA_APP_ID"]
 APP_KEY = os.environ["ADZUNA_APP_KEY"]
-COUNTRY = "us"
+COUNTRY = "sg"
 PAGES = 10  # ~20 results per page -> ~200 jobs
 QUERY = "software engineer"
 
