@@ -4,7 +4,8 @@ Top in-demand tech skills, extracted from real job postings.
 
 ## Live demo
 
-_(add links after deploy)_
+- Frontend: https://job-market-analyzer-xi.vercel.app
+- Backend API: https://job-market-analyzer-9s4i.onrender.com/api/skills/top (docs: /docs)
 
 ## Run locally
 
