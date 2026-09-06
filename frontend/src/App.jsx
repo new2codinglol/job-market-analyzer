@@ -19,6 +19,11 @@ export default function App() {
           <Route path="/jobs" element={<Jobs />} />
         </Routes>
       </div>
+      <footer className="px-8 py-4 text-sm text-slate-500">
+        Job data from Adzuna,{" "}
+        <a href="https://remoteok.com" className="underline">Remote OK</a>, and{" "}
+        <a href="https://weworkremotely.com" className="underline">We Work Remotely</a>.
+      </footer>
     </div>
   );
 }
