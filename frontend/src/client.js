@@ -20,3 +20,21 @@ export async function getJobs({ location = "", skill = "" } = {}) {
   if (!res.ok) throw new Error(`API error: ${res.status}`);
   return res.json();
 }
+
+export async function getLocations() {
+  const res = await fetch(`${API_URL}/api/locations`);
+  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  return res.json();
+}
+
+export async function getSalarySummary() {
+  const res = await fetch(`${API_URL}/api/salary/summary`);
+  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  return res.json();
+}
+
+export async function getSalaryDistribution() {
+  const res = await fetch(`${API_URL}/api/salary/distribution`);
+  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  return res.json();
+}

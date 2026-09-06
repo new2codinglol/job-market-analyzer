@@ -1,6 +1,6 @@
 # Job Market Analyzer
 
-Top in-demand tech skills and searchable job listings, extracted from real job postings (Singapore market — closest Adzuna coverage to the region; Malaysia isn't a supported Adzuna country).
+Top in-demand tech skills, searchable/filterable job listings, and salary analysis, built from real job postings (Adzuna Singapore, RemoteOK, We Work Remotely).
 
 ## Live demo
 
