@@ -11,20 +11,20 @@ const navLinkClass = ({ isActive }) =>
 export default function App() {
   return (
     <div className="min-h-screen bg-slate-50">
-      <nav className="bg-white/80 backdrop-blur border-b border-slate-200 px-8 py-4 flex items-center gap-2 sticky top-0 z-10">
-        <span className="font-bold text-slate-900 mr-4 tracking-tight">Job Market Analyzer</span>
+      <nav className="bg-white/80 backdrop-blur border-b border-slate-200 px-4 sm:px-8 py-3 sm:py-4 flex flex-wrap items-center gap-2 sticky top-0 z-10">
+        <span className="font-bold text-slate-900 mr-4 tracking-tight whitespace-nowrap w-full sm:w-auto mb-1 sm:mb-0">Job Market Analyzer</span>
         <NavLink to="/" end className={navLinkClass}>Dashboard</NavLink>
         <NavLink to="/jobs" className={navLinkClass}>Jobs</NavLink>
         <NavLink to="/salary" className={navLinkClass}>Salary</NavLink>
       </nav>
-      <div className="p-8 max-w-5xl mx-auto">
+      <div className="p-4 sm:p-8 max-w-5xl mx-auto">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/salary" element={<SalaryAnalysis />} />
         </Routes>
       </div>
-      <footer className="px-8 py-4 text-sm text-slate-500 max-w-5xl mx-auto">
+      <footer className="px-4 sm:px-8 py-4 text-sm text-slate-500 max-w-5xl mx-auto">
         Job data from Adzuna,{" "}
         <a href="https://remoteok.com" className="underline hover:text-slate-700">Remote OK</a>, and{" "}
         <a href="https://weworkremotely.com" className="underline hover:text-slate-700">We Work Remotely</a>.
