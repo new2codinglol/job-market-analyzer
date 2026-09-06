@@ -17,8 +17,17 @@ USER_AGENT = "job-market-analyzer-portfolio/1.0 (+https://github.com/new2codingl
 HEADERS = {"User-Agent": USER_AGENT}
 
 ADZUNA_COUNTRY = "sg"
-ADZUNA_PAGES = 10  # ~20 results per page -> ~200 jobs
-ADZUNA_QUERY = "software engineer"
+ADZUNA_PAGES_PER_QUERY = 3  # ~20 results per page
+ADZUNA_QUERIES = [
+    "software engineer",
+    "backend engineer",
+    "frontend engineer",
+    "full stack developer",
+    "data engineer",
+    "devops engineer",
+    "mobile developer",
+    "site reliability engineer",
+]
 
 OUT_PATH = Path(__file__).parent.parent / "data" / "seed_jobs.json"
 
@@ -81,36 +90,37 @@ def fetch_adzuna() -> list[dict]:
         return []
 
     jobs = []
-    for page in range(1, ADZUNA_PAGES + 1):
-        url = f"https://api.adzuna.com/v1/api/jobs/{ADZUNA_COUNTRY}/search/{page}"
-        params = {
-            "app_id": app_id,
-            "app_key": app_key,
-            "results_per_page": 20,
-            "what": ADZUNA_QUERY,
-            "content-type": "application/json",
-        }
-        resp = requests.get(url, params=params, headers=HEADERS, timeout=30)
-        resp.raise_for_status()
-        results = resp.json().get("results", [])
-        if not results:
-            break
-        for r in results:
-            salary_min, salary_max = annualize_sgd(r.get("salary_min"), r.get("salary_max"))
-            jobs.append({
-                "id": f"adzuna-{r.get('id')}",
-                "title": r.get("title"),
-                "company": (r.get("company") or {}).get("display_name"),
-                "location": (r.get("location") or {}).get("display_name"),
-                "description": r.get("description"),
-                "salary_min": salary_min,
-                "salary_max": salary_max,
-                "category": (r.get("category") or {}).get("label"),
-                "created": r.get("created"),
-                "redirect_url": r.get("redirect_url"),
-                "source": "adzuna",
-            })
-    print(f"Adzuna: {len(jobs)} jobs")
+    for query in ADZUNA_QUERIES:
+        for page in range(1, ADZUNA_PAGES_PER_QUERY + 1):
+            url = f"https://api.adzuna.com/v1/api/jobs/{ADZUNA_COUNTRY}/search/{page}"
+            params = {
+                "app_id": app_id,
+                "app_key": app_key,
+                "results_per_page": 20,
+                "what": query,
+                "content-type": "application/json",
+            }
+            resp = requests.get(url, params=params, headers=HEADERS, timeout=30)
+            resp.raise_for_status()
+            results = resp.json().get("results", [])
+            if not results:
+                break
+            for r in results:
+                salary_min, salary_max = annualize_sgd(r.get("salary_min"), r.get("salary_max"))
+                jobs.append({
+                    "id": f"adzuna-{r.get('id')}",
+                    "title": r.get("title"),
+                    "company": (r.get("company") or {}).get("display_name"),
+                    "location": (r.get("location") or {}).get("display_name"),
+                    "description": r.get("description"),
+                    "salary_min": salary_min,
+                    "salary_max": salary_max,
+                    "category": (r.get("category") or {}).get("label"),
+                    "created": r.get("created"),
+                    "redirect_url": r.get("redirect_url"),
+                    "source": "adzuna",
+                })
+    print(f"Adzuna: {len(jobs)} jobs across {len(ADZUNA_QUERIES)} queries")
     return jobs
 
 
