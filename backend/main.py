@@ -64,10 +64,18 @@ def _salary_midpoint(job: dict) -> float | None:
 # Adzuna's free tier truncates description to 500 chars — too little text
 # for reliable skill matching on this specific subset) so a distribution is
 # the one honest chart this dataset supports beyond a single summary number.
-SALARY_CURRENCY = "SGD"
-SALARIED_JOBS = [m for j in JOBS if j.get("source") == "adzuna" and (m := _salary_midpoint(j)) is not None]
+#
+# Converted to MYR (Jason's actual market) since the data itself is
+# Singapore/SGD. Rate is a static snapshot, not a live lookup — this app has
+# no other runtime external dependency and salary data doesn't need to track
+# FX moment-to-moment. Fetched from open.er-api.com on 2026-09-07.
+SALARY_CURRENCY = "MYR"
+SGD_TO_MYR = 3.192
+SALARIED_JOBS = [
+    m * SGD_TO_MYR for j in JOBS if j.get("source") == "adzuna" and (m := _salary_midpoint(j)) is not None
+]
 
-BUCKET_SIZE = 20_000
+BUCKET_SIZE = 100_000
 
 
 @app.get("/api/salary/summary")

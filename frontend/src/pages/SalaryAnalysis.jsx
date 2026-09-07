@@ -33,13 +33,13 @@ export default function SalaryAnalysis() {
       .catch((e) => setError(e.message));
   }, []);
 
-  const fmt = (n) => (n == null ? "—" : `S$${n.toLocaleString()}`);
+  const fmt = (n) => (n == null ? "—" : `RM${n.toLocaleString()}`);
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-slate-900 mb-1">Salary Analysis</h1>
       <p className="text-sm text-slate-500 mb-6">
-        Singapore market only (Adzuna, SGD) — the one currency this dataset has enough salaried listings for.
+        Singapore market only (Adzuna) — the one currency this dataset has enough salaried listings for, converted from SGD to Ringgit.
       </p>
 
       {error && <p className="text-red-600">{error}</p>}
@@ -55,7 +55,7 @@ export default function SalaryAnalysis() {
 
       {distribution.length > 0 && (
         <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-          <h2 className="text-sm font-semibold text-slate-700 mb-4">Salary distribution (annual SGD)</h2>
+          <h2 className="text-sm font-semibold text-slate-700 mb-4">Salary distribution (annual RM)</h2>
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={distribution}>
               <CartesianGrid strokeDasharray="3 3" />
